@@ -2,6 +2,7 @@
 /.settings
 /target
 /.classpath
-/.iml
+/*.iml
 /.project
+/src/main/resources/jdbc.properties
 
