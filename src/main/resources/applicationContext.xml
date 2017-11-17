@@ -64,19 +64,19 @@
 
      <!-- *******************************shiro安全框架**************************************************-->
     <!-- 用户授权信息Cache -->
- <!--   <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 
-    &lt;!&ndash; 項目自定义的Realm &ndash;&gt;
-    <bean id="myShiroRealm" class="com.lostandfound.Utils.MyShiroRealm">
+    <!-- 項目自定义的Realm -->
+    <bean id="myShiroRealm" class="com.nineteen.lostfound.utils.MyShiroRealm">
         <property name="cacheManager" ref="cacheManager" />
     </bean>
 
-    &lt;!&ndash; Shiro's main business-tier object for web-enabled applications &ndash;&gt;
+    <!-- Shiro's main business-tier object for web-enabled applications -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="myShiroRealm" />
         <property name="cacheManager" ref="cacheManager" />
     </bean>
-    &lt;!&ndash; Shiro Filter &ndash;&gt;
+    <!-- Shiro Filter -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager" />
         <property name="loginUrl" value="/html/login.html" />
@@ -89,14 +89,15 @@
                 /html/login.html = anon
                 /html/home.html = anon
                 /html/** = authc
+                /user/**=anon
             </value>
         </property>
     </bean>
 
-    &lt;!&ndash; 保证实现了Shiro内部lifecycle函数的bean执行 &ndash;&gt;
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 
-    &lt;!&ndash; AOP式方法级权限检查 &ndash;&gt;
+    <!-- AOP式方法级权限检查 -->
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
           depends-on="lifecycleBeanPostProcessor">
         <property name="proxyTargetClass" value="true" />
@@ -104,7 +105,7 @@
 
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager" />
-    </bean>-->
+    </bean>
 
 
 </beans>
