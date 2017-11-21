@@ -72,10 +72,10 @@ function checkUser(level) {
     var userid=$.session.get("userid");
     var role=$.session.get("role");
     if(userid==undefined || role==undefined){
-        window.location.href="../html/login.html";
+        window.location.href="../html/test.html";
     }
     if(level!=role){
-        window.location.href="../html/login.html";
+        window.location.href="../html/test.html";
     }
 }
 function getInfo(options) {

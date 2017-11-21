@@ -30,9 +30,6 @@ public class UserController {
     @ResponseBody
     public JSONObject checkLogin(@RequestBody JSONObject jsonObject) {
         JSONObject result=new JSONObject();
-       /* String username=request.getParameter("user");
-        String password=request.getParameter("password");*/
-
         String username=(String) jsonObject.get("username");
         String password=(String)jsonObject.get("password");
         try{
@@ -42,11 +39,11 @@ public class UserController {
                 //使用shiro来验证
                 token.setRememberMe(true);
                 currentUser.login(token);//验证角色和权限
+                result.put("success", true);
             }
         }catch(Exception ex){
-
+            result.put("success",false);
         }
-        result.put("success", true);
         return result;
     }
     @RequestMapping(value="/logout",method = RequestMethod.GET)

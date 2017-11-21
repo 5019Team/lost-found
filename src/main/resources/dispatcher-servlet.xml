@@ -24,6 +24,8 @@
     <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
     <mvc:resources mapping="/css/**" location="/css/"></mvc:resources>
     <mvc:resources mapping="/html/**" location="/html/"></mvc:resources>
+    <mvc:resources mapping="/fonts/**" location="/fonts/"></mvc:resources>
+    <mvc:resources mapping="/img/**" location="/img/"></mvc:resources>
 
     <!-- 文件上传解析器id:框架内部使用，不能丢 -->
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

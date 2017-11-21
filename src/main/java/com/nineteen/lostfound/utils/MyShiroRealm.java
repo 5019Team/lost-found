@@ -26,8 +26,8 @@ public class MyShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         Set<String> roleNames = new HashSet<String>();
         Set<String> permissions = new HashSet<String>();
-        roleNames.add("administrator");//添加角色
-        permissions.add("newPage.jhtml");  //添加权限
+        roleNames.add("admin");//添加角色
+        permissions.add("search");  //添加权限
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo(roleNames);
         info.setStringPermissions(permissions);
         return info;
@@ -37,15 +37,14 @@ public class MyShiroRealm extends AuthorizingRealm {
      * 登录验证
      */
     @Override
-    protected AuthenticationInfo doGetAuthenticationInfo(
-            AuthenticationToken authcToken) throws AuthenticationException {
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
         String username=token.getUsername();
         User user=new User();
         user.setUserid(username);
        List<User> user1= userMapper.select(user);
         if(token.getUsername().equals(user1.get(0).getUserid())){
-            return new SimpleAuthenticationInfo(user1.get(0).getUserid(), user1.get(0).getPassword(), getName());
+            return new SimpleAuthenticationInfo(user1.get(0).getUserid(), user1.get(0).getPassword(), this.getName());
         }else{
             throw new AuthenticationException();
         }

@@ -87,8 +87,8 @@
                 /user/logout = anon
                 /html/login.html = anon
                 /html/home.html = anon
-                /html/** = authc
-                /user/**=anon
+                /html/** = authc,roles[admin]
+                /user/**=authc,perms[admin:add]
             </value>
         </property>
     </bean>

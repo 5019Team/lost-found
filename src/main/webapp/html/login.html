@@ -1,35 +1,119 @@
 <!DOCTYPE html>
-<html ng-app="myapp">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script type="text/javascript" src="../js/angular.js"></script>
-    <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-<form ng-controller="loginController">
-    <div>
-    <input type="text" class="form-control" ng-model="username" placeholder="Username" />
-    </div>
-    <div>
-    <input type="text" class="form-control" ng-model="password" placeholder="Password">
-    </div>
-    <button class="btn btn-danger" type="button" ng-click="onclick()">登录</button>
-</form>
+<html lang="en" ng-app="myapp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+	  <script type="text/javascript" src="../js/angular.js"></script>
+    <title>登陆</title>
 
- <script>
-     var app=angular.module('myapp',[]);
-     app.controller('loginController',function ($scope,$http) {
-             $scope.onclick= function(){
-                 var username=$scope.username;
-                 var password=$scope.password;
-                 var jsondata={username:username,password:password};
-                 $http.post('/user/login',JSON.stringify(jsondata)).success(function (data) {
-                alert("success!");
-            });
-     }
-     });
- </script>
+    <!-- Bootstrap core CSS -->
+    <link href="../css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="/css/assets/font-awesome.css" rel="stylesheet" />
+        
+    <!-- Custom styles for this template -->
+    <link href="../css/assets/style.css" rel="stylesheet">
+    <link href="../css/assets/style-responsive.css" rel="stylesheet">
 
-</body>
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+      <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+
+	  <div id="login-page">
+	  	<div class="container">
+	  	
+		      <form class="form-login" ng-controller="loginController">
+		        <h2 class="form-login-heading">登陆</h2>
+		        <div class="login-wrap">
+		            <input type="text" ng-model="userid" class="form-control" placeholder="用户名" autofocus>
+		            <br>
+		            <input type="password" ng-model="password" class="form-control" placeholder="密码">
+		            <label class="checkbox">
+		                <span class="pull-right">
+		                    <a data-toggle="modal" href="login.html#myModal"> 忘记密码？</a>
+		                </span>
+		            </label>
+		            <button class="btn btn-theme btn-block" ng-click="loginClick()" ><i class="fa fa-lock"></i> 登陆</button>
+		            <hr>
+		            
+		            <div class="login-social-link centered">
+		            <p>您可以通过以下方式进行登陆</p>
+		                <button class="btn btn-facebook" type="submit"><i class="fa fa-facebook"></i> QQ</button>
+		                <button class="btn btn-twitter" type="submit"><i class="fa fa-twitter"></i> 微信</button>
+		            </div>
+		            <div class="registration">
+		               如果您没有账号<br/>
+		                <a class="" href="#">
+		                    注册
+		                </a>
+		            </div>
+		
+		        </div>
+		
+		          <!-- Modal -->
+		          <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+		              <div class="modal-dialog">
+		                  <div class="modal-content">
+		                      <div class="modal-header">
+		                          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                          <h4 class="modal-title">Forgot Password ?</h4>
+		                      </div>
+		                      <div class="modal-body">
+		                          <p>Enter your e-mail address below to reset your password.</p>
+		                          <input type="text" name="email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+		
+		                      </div>
+		                      <div class="modal-footer">
+		                          <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+		                          <button class="btn btn-theme" type="button">Submit</button>
+		                      </div>
+		                  </div>
+		              </div>
+		          </div>
+		          <!-- modal -->
+
+		      </form>	  	
+	  	
+	  	</div>
+	  </div>
+
+    <!-- js placed at the end of the document so the pages load faster -->
+<!--    <script src="assets/js/jquery.js"></script>-->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="../js/assets/jquery.backstretch.min.js"></script>
+    <script>
+
+
+		var app=angular.module('myapp',[]);
+		app.controller('loginController',function ($scope,$http) {
+			$scope.loginClick= function(){
+				var username=$scope.userid;
+				var password=$scope.password;
+				var jsondata={username:username,password:password};
+				$http.post('/user/login',JSON.stringify(jsondata)).success(function (data) {
+					alert("success!");
+				});
+			}
+		});
+
+		$.backstretch("/img/assets/login-bg.jpg", {speed: 500});
+    </script>
+
+
+  </body>
 </html>
