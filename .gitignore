@@ -3,6 +3,6 @@
 /target
 /.classpath
 /*.iml
+/lostfound.iml
 /.project
-/src/main/resources/jdbc.properties
 
