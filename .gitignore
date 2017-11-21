@@ -2,7 +2,6 @@
 /.settings
 /target
 /.classpath
-/*.iml
-/lostfound.iml
+/lost-found.iml
 /.project
 
