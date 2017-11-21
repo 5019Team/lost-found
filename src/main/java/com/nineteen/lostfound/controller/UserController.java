@@ -1,5 +1,6 @@
 package com.nineteen.lostfound.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.nineteen.lostfound.entity.User;
 import com.nineteen.lostfound.service.UserService;
@@ -9,6 +10,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -26,10 +28,13 @@ public class UserController {
 
     @RequestMapping(value="/login",method= RequestMethod.POST)
     @ResponseBody
-    public JSONObject checkLogin(HttpServletRequest request) {
+    public JSONObject checkLogin(@RequestBody JSONObject jsonObject) {
         JSONObject result=new JSONObject();
-        String username=request.getParameter("user");
-        String password=request.getParameter("password");
+       /* String username=request.getParameter("user");
+        String password=request.getParameter("password");*/
+
+        String username=(String) jsonObject.get("username");
+        String password=(String)jsonObject.get("password");
         try{
             UsernamePasswordToken token = new UsernamePasswordToken(username, password);
             Subject currentUser = SecurityUtils.getSubject();
