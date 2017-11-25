@@ -33,7 +33,7 @@ public class MyDispacher implements HandlerInterceptor {
                 return true;
             }
             else{
-                String str=httpServletRequest.getContextPath()+"/html/login.html";
+                String str=httpServletRequest.getContextPath()+"/html/test.html";
                 httpServletResponse.sendRedirect(str);
                 return false;
             }
@@ -48,7 +48,7 @@ public class MyDispacher implements HandlerInterceptor {
             if (url.endsWith(blackList.get(i))){
                 if (logger.isDebugEnabled()){
                     logger.debug("----------在黑名单----------");
-                    String str=httpServletRequest.getContextPath()+"/html/login.html";
+                    String str=httpServletRequest.getContextPath()+"/html/test.html";
                     httpServletResponse.sendRedirect(str);
                     return false;
                 }
