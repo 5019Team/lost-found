@@ -8,7 +8,7 @@
 <body>
 <h2>Hello World!</h2>
 <script>
-    window.location.href=getContextPath()+"/html/login.html"
+     window.location.href=getContextPath()+"/html/login.html" ;//getContextPath函数有问题
 </script>
 </body>
 </html>
