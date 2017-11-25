@@ -1,6 +1,7 @@
-package com.nineteen.lostfound.utils;
+package com.nineteen.lostfound.shiro;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,15 +13,15 @@ import java.util.List;
 /**
  * Created by zhang on 2017/3/26.
  */
-public class MyDispacher implements HandlerInterceptor {
-    private static final Logger logger = Logger.getLogger(MyDispacher.class);
+public class ShiroDispacher implements HandlerInterceptor {
+    private static final Logger log = LoggerFactory.getLogger(ShiroDispacher.class);
     private List<String> blackList;
 
 
     //Action之前执行
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-        logger.debug("请求-------"+httpServletRequest.getRequestURI());
-        logger.debug("----------校验登录权限----------");
+        log.debug("请求-------"+httpServletRequest.getRequestURI());
+        log.debug("----------校验登录权限----------");
 
         HttpSession session=httpServletRequest.getSession();
         Object userName= session.getAttribute("username");
@@ -46,8 +47,8 @@ public class MyDispacher implements HandlerInterceptor {
 
         for (int i = 0; i <blackList.size() ; i++) {
             if (url.endsWith(blackList.get(i))){
-                if (logger.isDebugEnabled()){
-                    logger.debug("----------在黑名单----------");
+                if (log.isDebugEnabled()){
+                    log.debug("----------在黑名单----------");
                     String str=httpServletRequest.getContextPath()+"/html/test.html";
                     httpServletResponse.sendRedirect(str);
                     return false;

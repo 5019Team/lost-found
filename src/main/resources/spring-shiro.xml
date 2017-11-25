@@ -7,7 +7,7 @@
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 
     <!-- 項目自定义的Realm -->
-    <bean id="myShiroRealm" class="com.nineteen.lostfound.utils.MyShiroRealm">
+    <bean id="myShiroRealm" class="com.nineteen.lostfound.shiro.ShiroRealm">
         <property name="cacheManager" ref="cacheManager" />
     </bean>
 
