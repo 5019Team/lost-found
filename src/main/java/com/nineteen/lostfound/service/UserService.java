@@ -1,7 +1,7 @@
 package com.nineteen.lostfound.service;
 
-import com.nineteen.lostfound.entity.User;
-import com.nineteen.lostfound.mapper.UserMapper;
+import com.nineteen.lostfound.dao.harmony.entity.User;
+import com.nineteen.lostfound.dao.harmony.mapper.UserMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

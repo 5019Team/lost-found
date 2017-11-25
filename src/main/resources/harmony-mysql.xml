@@ -1,0 +1,91 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 引入配置文件 -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:jdbc.properties" />
+    </bean>
+
+    <bean id="harmonyDataSource" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${mysql.driver}" />
+        <property name="url" value="${harmony.url}" />
+        <property name="username" value="${harmony.username}" />
+        <property name="password" value="${harmony.password}" />
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="3" />
+        <property name="minIdle" value="3"/>
+        <property name="maxActive" value="50" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="10000" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <!-- 不影响性能。申请连接时检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效 -->
+        <property name="testWhileIdle" value="true" />
+        <!-- 验证连接的SQL -->
+        <property name="validationQuery" value="select 1 " />
+        <!-- 防止取到的连接不可用 会降低性能 -->
+        <property name="testOnBorrow" value="true" />
+        <property name="testOnReturn" value="false" />
+
+
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <!-- PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。-->
+        <property name="poolPreparedStatements" value="false" />
+        <!-- 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100 -->
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="-1" />
+        <!-- 这里配置提交方式，默认就是TRUE，可以不用配置 -->
+        <property name="defaultAutoCommit" value="true" />
+        <property name="filters" value="stat" />
+    </bean>
+
+    <!-- 配置sqlSessionFactory -->
+    <bean id="harmonySqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 实例化sqlSessionFactory时需要使用上述配置好的数据源以及SQL映射文件 -->
+        <property name="dataSource" ref="harmonyDataSource" />
+        <property name="mapperLocations" value="classpath:mapper/harmony/*.xml" />
+        <property name="typeAliasesPackage" value="com.nineteen.lostfound.dao.harmony.entity"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+    <!-- 配置扫描器 -->
+    <bean name="harmonyMapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描包以及它的子包下的所有映射接口类 -->
+        <property name="basePackage" value="com.nineteen.lostfound.dao.harmony.mapper" />
+        <property name="sqlSessionFactoryBeanName" value="harmonySqlSessionFactory" />
+    </bean>
+
+    <bean id="harmonySqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="harmonySqlSessionFactory"/>
+    </bean>
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.nineteen.lostfound.dao.harmony.mapper"/>
+        <!-- 3.2.2版本新特性，markerInterface可以起到mappers配置的作用，详细情况需要看Marker接口类 -->
+        <property name="markerInterface" value="tk.mybatis.mapper.common.Mapper"/>
+        <property name="sqlSessionTemplateBeanName" value="harmonySqlSessionTemplate"/>
+    </bean>
+
+    <!-- 配置Spring的事务管理器 -->
+    <bean id="harmonyTransactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="harmonyDataSource" />
+    </bean>
+
+    <!-- 注解方式配置事物 -->
+    <tx:annotation-driven transaction-manager="harmonyTransactionManager" />
+
+    <bean id="harmonyTransactionTemplate"
+          class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="harmonyTransactionManager" />
+    </bean>
+
+</beans>

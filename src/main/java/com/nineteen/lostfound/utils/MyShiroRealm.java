@@ -1,7 +1,7 @@
 package com.nineteen.lostfound.utils;
 
-import com.nineteen.lostfound.entity.User;
-import com.nineteen.lostfound.mapper.UserMapper;
+import com.nineteen.lostfound.dao.harmony.entity.User;
+import com.nineteen.lostfound.dao.harmony.mapper.UserMapper;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

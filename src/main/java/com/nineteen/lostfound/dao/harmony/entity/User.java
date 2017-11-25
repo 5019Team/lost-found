@@ -1,4 +1,4 @@
-package com.nineteen.lostfound.entity;
+package com.nineteen.lostfound.dao.harmony.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

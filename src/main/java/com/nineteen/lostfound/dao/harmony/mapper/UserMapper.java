@@ -1,8 +1,8 @@
-package com.nineteen.lostfound.mapper;
+package com.nineteen.lostfound.dao.harmony.mapper;
 
 import org.springframework.stereotype.Repository;
 
-import com.nineteen.lostfound.entity.User;
+import com.nineteen.lostfound.dao.harmony.entity.User;
 
 import tk.mybatis.mapper.common.Mapper;
 
