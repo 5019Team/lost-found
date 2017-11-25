@@ -24,6 +24,7 @@
         <property name="unauthorizedUrl" value="/html/login.html" />
         <property name="filterChainDefinitions">
             <value>
+                /** = anon
                 /user/** = anon
                 /html/** = anon
                 /html/** = authc,roles[admin]
