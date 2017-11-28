@@ -1,35 +1,33 @@
 package com.nineteen.lostfound.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.nineteen.lostfound.controller.viewobject.UserVO;
 import com.nineteen.lostfound.dao.harmony.entity.User;
 import com.nineteen.lostfound.service.UserService;
 
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
  * Created by mengxu on 2017/9/26.
  */
-@Controller
-@RequestMapping(value = "/user")
-public class UserController {
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+@RestController
+@RequestMapping("/auth")
+@Api(tags="auth")
+public class AuthController {
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/login",method= RequestMethod.POST)
-    @ResponseBody
+    @PostMapping("/login")
     public JSONObject checkLogin(@RequestBody JSONObject jsonObject) {
         JSONObject result=new JSONObject();
         String username=(String) jsonObject.get("username");
@@ -48,13 +46,21 @@ public class UserController {
         }
         return result;
     }
-    @RequestMapping(value="/logout",method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping("/logout")
     public JSONObject logout(){
         String me="hello world";
         JSONObject result=new JSONObject();
         result.put("me",me);
         userService.login(new User());
         return result;
+    }
+
+    @GetMapping("/modify")
+    public UserVO modifyUser(){
+        UserVO user = new UserVO();
+        user.setName("goaler");
+        user.setAge(23);
+        user.setSex("男");
+        return user;
     }
 }
