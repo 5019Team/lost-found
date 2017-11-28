@@ -10,26 +10,21 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
  * Created by mengxu on 2017/9/26.
  */
-@Controller
+@RestController
 @RequestMapping(value = "/user")
-public class UserController {
+public class UserController{
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
 
     @RequestMapping(value="/login",method= RequestMethod.POST)
-    @ResponseBody
     public JSONObject checkLogin(@RequestBody JSONObject jsonObject) {
         JSONObject result=new JSONObject();
         String username=(String) jsonObject.get("username");
@@ -48,8 +43,8 @@ public class UserController {
         }
         return result;
     }
+
     @RequestMapping(value="/logout",method = RequestMethod.GET)
-    @ResponseBody
     public JSONObject logout(){
         String me="hello world";
         JSONObject result=new JSONObject();
