@@ -1,4 +1,4 @@
-package com.nineteen.lostfound.utils;
+package com.nineteen.lostfound.shiro;
 
 import com.nineteen.lostfound.dao.harmony.entity.User;
 import com.nineteen.lostfound.dao.harmony.mapper.UserMapper;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 
 
-public class MyShiroRealm extends AuthorizingRealm {
+public class ShiroRealm extends AuthorizingRealm {
     @Autowired
    private UserMapper userMapper;
 

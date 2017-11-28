@@ -37,7 +37,7 @@
     </bean>
 
     <mvc:interceptors>
-        <bean class="com.nineteen.lostfound.utils.MyDispacher">
+        <bean class="com.nineteen.lostfound.shiro.ShiroDispacher">
             <property name="blackList">
                 <list>
                     <value>pay.html</value>
