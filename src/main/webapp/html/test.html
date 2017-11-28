@@ -16,10 +16,10 @@
     </div>
     <button class="btn btn-danger" type="button" ng-click="onclick()">登录</button>
 </form>
-<div ng-inti="$state= go()">
+<!--<div ng-inti="$state= go()">
     <div ui-view>
     </div>
-</div>
+</div>-->
 
 
  <script>
@@ -28,7 +28,7 @@
              $scope.onclick= function(){
                  var username=$scope.username;
                  var password=$scope.password;
-                 var jsondata={username:username,password:password};
+                 var jsondata = {username:username,password:password};
                  $http.post('/user/login',JSON.stringify(jsondata)).success(function (data) {
                 alert("success!");
             });
