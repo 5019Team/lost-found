@@ -1,9 +1,11 @@
 package com.nineteen.lostfound.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.nineteen.lostfound.controller.viewobject.UserVO;
 import com.nineteen.lostfound.dao.harmony.entity.User;
 import com.nineteen.lostfound.service.UserService;
 
+import io.swagger.annotations.Api;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -17,14 +19,15 @@ import org.springframework.web.bind.annotation.*;
  * Created by mengxu on 2017/9/26.
  */
 @RestController
-@RequestMapping(value = "/user")
-public class UserController{
-    private static final Logger log = LoggerFactory.getLogger(UserController.class);
+@RequestMapping("/auth")
+@Api(tags="auth")
+public class AuthController {
+    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping(value="/login",method= RequestMethod.POST)
+    @PostMapping("/login")
     public JSONObject checkLogin(@RequestBody JSONObject jsonObject) {
         JSONObject result=new JSONObject();
         String username=(String) jsonObject.get("username");
@@ -43,13 +46,21 @@ public class UserController{
         }
         return result;
     }
-
-    @RequestMapping(value="/logout",method = RequestMethod.GET)
+    @GetMapping("/logout")
     public JSONObject logout(){
         String me="hello world";
         JSONObject result=new JSONObject();
         result.put("me",me);
         userService.login(new User());
         return result;
+    }
+
+    @GetMapping("/modify")
+    public UserVO modifyUser(){
+        UserVO user = new UserVO();
+        user.setName("goaler");
+        user.setAge(23);
+        user.setSex("男");
+        return user;
     }
 }
