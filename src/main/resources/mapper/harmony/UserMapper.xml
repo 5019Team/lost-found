@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD com.lostandfound.Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nineteen.lostfound.dao.harmony.mapper.UserMapper">
-  <select id="selectUser" parameterType="com.nineteen.lostfound.dao.harmony.entity.User" resultType="com.nineteen.lostfound.dao.harmony.entity.User">
+    <resultMap id="userInfo" type="com.nineteen.lostfound.controller.viewobject.UserInfo">
+        <id property="userId" column="userid"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <collection property="address" column="userid" ofType="com.nineteen.lostfound.dao.harmony.entity.Address" select="selectAddress"/>
+    </resultMap>
+  <select id="selectUser" parameterType="com.nineteen.lostfound.dao.harmony.entity.User" resultMap="userInfo">
       select * from user where userid=#{userid}
   </select>
+    <select id="selectAddress" parameterType="string" resultType="com.nineteen.lostfound.dao.harmony.entity.Address">
+    select * from address where memberid = #{userid}
+</select>
 </mapper>
