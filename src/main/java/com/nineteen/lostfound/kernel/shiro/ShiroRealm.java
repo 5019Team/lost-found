@@ -1,4 +1,4 @@
-package com.nineteen.lostfound.shiro;
+package com.nineteen.lostfound.kernel.shiro;
 
 import com.nineteen.lostfound.dao.harmony.entity.User;
 import com.nineteen.lostfound.dao.harmony.mapper.UserMapper;

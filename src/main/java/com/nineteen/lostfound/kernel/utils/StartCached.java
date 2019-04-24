@@ -1,4 +1,4 @@
-package com.nineteen.lostfound.utils;
+package com.nineteen.lostfound.kernel.utils;
 
 /**
  * Created by mengxu on 2018/3/8.
@@ -36,6 +36,7 @@ public class StartCached implements ApplicationListener<ContextRefreshedEvent>
             Map<String,String> countryMap = new HashMap<String, String>();
             cityMap.put("hello","world");
             countryMap.put("My name is ","mengxu");
+
 
             redisCache.setCacheStringMap("cityMap", cityMap);
             redisCache.setCacheStringMap("countryMap", countryMap);

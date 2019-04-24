@@ -68,4 +68,14 @@
         <listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
     </listener>
 
+    <!--//将url-pattern下的资源屏蔽-->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Forbidden</web-resource-name>
+            <url-pattern>/page/*</url-pattern>
+            <url-pattern>/test/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint/>
+    </security-constraint>
+
 </web-app>

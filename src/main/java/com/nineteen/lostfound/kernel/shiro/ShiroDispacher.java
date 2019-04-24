@@ -1,4 +1,4 @@
-package com.nineteen.lostfound.shiro;
+package com.nineteen.lostfound.kernel.shiro;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

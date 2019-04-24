@@ -63,4 +63,12 @@ public class AuthController {
         user.setSex("男");
         return user;
     }
+
+    @GetMapping("/test")
+    public JSONObject test(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("success","true");
+        return jsonObject;
+    }
+
 }
